@@ -1,7 +1,12 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import StudentItem from './StudentItem'
 
 class PairItem extends PureComponent {
+  static propTypes = {
+    date: PropTypes.string.isRequired,
+    students: PropTypes.array.isRequired,
+  }
+
   renderStudent(student, index) {
     return <StudentItem key={index} {...student} />
   }
