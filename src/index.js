@@ -10,7 +10,6 @@ import ClassDayPage from './classdays/ClassDayPage'
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

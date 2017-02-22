@@ -11,6 +11,7 @@ class ClassDayItem extends PureComponent {
     allStudents: PropTypes.array.isRequired,
   }
 
+
   renderStudent(student, index) {
     return <RenderStudent key={index} {...student} />
   }

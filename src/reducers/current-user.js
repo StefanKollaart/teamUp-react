@@ -1,7 +1,7 @@
 import { USER_SIGNED_IN } from '../actions/user/sign-in'
 import { USER_SIGNED_OUT } from '../actions/user/sign-out'
 
-const CURRENT_USER_KEY = 'pairs.currentUser'
+const CURRENT_USER_KEY = 'classDays.currentUser'
 
 const initialState = JSON.parse(localStorage.getItem(CURRENT_USER_KEY))
 

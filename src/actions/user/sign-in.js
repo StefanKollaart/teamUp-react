@@ -3,6 +3,7 @@ import loadError from '../load-error'
 import loadSuccess from '../load-success'
 import loading from '../loading'
 import { history } from '../../store'
+import createClassDay from '../classDays/create'
 export const USER_SIGNED_IN = 'USER_SIGNED_IN'
 
 const api = new API()
@@ -14,11 +15,12 @@ export default (user) => {
     api.authenticate(user)
     .then((response) => {
       dispatch(loadSuccess())
-      dispatch({
-        type: USER_SIGNED_IN,
-        payload: response.data
-      })
-      history.push('/')
+      createClassDay(response)
+        dispatch({
+          type: USER_SIGNED_IN,
+          payload: response.data
+        })
+        history.push('/')
     })
     .catch((error) => {
       dispatch(loadError(error))

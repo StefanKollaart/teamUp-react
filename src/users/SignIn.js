@@ -10,6 +10,7 @@ export class SignIn extends PureComponent {
 
   submitForm(event) {
     event.preventDefault()
+
     const user = {
       email: this.refs.email.value,
       password: this.refs.password.value
@@ -36,4 +37,8 @@ export class SignIn extends PureComponent {
   }
 }
 
-export default connect(null, { signIn })(SignIn)
+const mapStateToProps = ({ classDays }) => ({
+  classDays
+})
+
+export default connect(mapStateToProps, { signIn })(SignIn)

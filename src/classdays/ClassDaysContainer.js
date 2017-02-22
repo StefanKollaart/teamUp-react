@@ -2,11 +2,18 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import ClassDayItem from './ClassDayItem'
 import fetchClassDays from '../actions/classDays/fetch'
+import { Link } from 'react-router'
+import signOut from '../actions/user/sign-out'
 
 class ClassDaysContainer extends PureComponent {
   renderClassDays(classday, index) {
     console.log(classday)
     return <ClassDayItem key={index} {...classday} />
+  }
+
+  constructor() {
+    super()
+    this.state = {}
   }
 
   componentDidMount() {
@@ -23,6 +30,7 @@ class ClassDaysContainer extends PureComponent {
        <main>
          { this.props.classDays.map(this.renderClassDays) }
        </main>
+
      </div>
    )
  }

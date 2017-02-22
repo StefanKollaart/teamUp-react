@@ -15,7 +15,7 @@ export default () => {
     classDays.find()
       .then((result) => {
         dispatch(loadSuccess())
-        dispatch(fetchedPairs(result))
+        dispatch(fetchedDays(result))
       }).catch((error) => {
         dispatch(loadError(error))
       }).then(() => {
@@ -24,7 +24,7 @@ export default () => {
     }
 }
 
-const fetchedPairs = (result) => {
+const fetchedDays = (result) => {
   return {
     type: FETCHED_CLASSDAYS,
     payload: [].concat(result.data)
