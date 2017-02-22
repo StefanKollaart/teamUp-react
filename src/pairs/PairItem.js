@@ -1,5 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import StudentItem from './StudentItem'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 class PairItem extends PureComponent {
   static propTypes = {
@@ -12,12 +14,12 @@ class PairItem extends PureComponent {
   }
 
   render() {
-    const {date, students} = this.props
+    const {_id, date, students} = this.props
 
     return(
       <article className="pair">
         <div>
-          <p>On { date }, this is your team:</p>
+          <p><Link to={`/pairs/${_id}`}>On { date }, this is your team:</Link></p>
           <ul>
             {console.log(this.props.students)}
             {((this.props.students) && students.map(this.renderStudent))}

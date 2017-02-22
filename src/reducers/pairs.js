@@ -1,3 +1,4 @@
+import { FETCHED_PAIRS } from '../actions/pairs/fetch'
 const pairs = [
   {
     date: "2017-2-22",
@@ -8,5 +9,11 @@ const pairs = [
 ]
 
 export default (state = pairs, { type, payload } = {}) => {
-  return state
+  switch(type) {
+    case FETCHED_PAIRS:
+      return[].concat(payload)
+
+    default:
+      return state
+  }
 }

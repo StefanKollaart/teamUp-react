@@ -1,11 +1,10 @@
-import React, { PureComponent, PropTypes } from 'react'
-import PairsContainer from './pairs/PairsContainer'
+import React, { Component } from 'react'
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <PairsContainer />
+         { this.props.children }
       </div>
     )
   }
