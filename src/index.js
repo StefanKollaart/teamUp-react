@@ -7,6 +7,9 @@ import store, { history } from './store'
 
 import PairsContainer from './pairs/PairsContainer'
 import PairPage from './pairs/PairPage'
+import SignUp from './users/SignUp'
+import SignIn from './users/SignIn'
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -14,6 +17,8 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={PairsContainer} />
       <Route path="/pairs/:pairId" component={PairPage} />
+      <Route path="sign-up" component={SignUp}/>
+      <Route path="sign-in" component={SignIn}/>
     </Route>
   </Router>
 </Provider>,
