@@ -1,5 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react'
-import StudentItem from './StudentItem'
+import StudentItem from '../components/StudentItem'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 

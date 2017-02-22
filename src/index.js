@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute } from 'react-router'
 import store, { history } from './store'
 
-import PairsContainer from './pairs/PairsContainer'
-import PairPage from './pairs/PairPage'
+import ClassDaysContainer from './classdays/ClassDaysContainer'
+import ClassDayPage from './classdays/ClassDayPage'
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 
@@ -15,8 +15,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
     <Route path="/" component={App}>
-      <IndexRoute component={PairsContainer} />
-      <Route path="/pairs/:pairId" component={PairPage} />
+      <IndexRoute component={ClassDaysContainer} />
+      <Route path="/classdays/:classDayId" component={ClassDayPage} />
       <Route path="sign-up" component={SignUp}/>
       <Route path="sign-in" component={SignIn}/>
     </Route>
