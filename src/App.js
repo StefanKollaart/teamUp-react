@@ -1,9 +1,21 @@
 import React from 'react'
+import PairsContainer from './pairs/PairsContainer'
+
+const pairs = [
+  {
+    date: "2017-2-22",
+    students: [
+      {name: "Stefan Kollaart", email: "stefankollaart@gmail.com", admin: true}
+    ]
+  }
+]
 
 class App extends React.Component {
   render() {
     return (
-      <h1>Hello World!</h1>
+      <div>
+        <PairsContainer pairs={ pairs } />
+      </div>
     )
   }
 }
