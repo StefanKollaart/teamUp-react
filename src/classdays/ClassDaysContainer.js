@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ClassDayItem from './ClassDayItem'
 import fetchClassDays from '../actions/classDays/fetch'
 import { Link } from 'react-router'
-import signOut from '../actions/user/sign-out'
 
 class ClassDaysContainer extends PureComponent {
   renderClassDays(classday, index) {

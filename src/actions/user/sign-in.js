@@ -15,12 +15,18 @@ export default (user) => {
     api.authenticate(user)
     .then((response) => {
       dispatch(loadSuccess())
-      createClassDay(response)
         dispatch({
           type: USER_SIGNED_IN,
           payload: response.data
         })
-        history.push('/')
+        dispatch(createClassDay(response, user))
+        console.log("Test")
+        .then(() => {
+          console.log("here")
+          history.push('/')
+        }).catch((error) => {
+          console.log(error)
+        })
     })
     .catch((error) => {
       dispatch(loadError(error))

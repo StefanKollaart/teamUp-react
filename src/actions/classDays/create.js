@@ -2,11 +2,14 @@ import API from '../../middleware/api'
 const api = new API()
 const classDays = api.service('classdays')
 import { history } from '../../store'
-// import match from '../pairs/match'
+const errors = require('feathers-errors');
 
-export default function match(user) {
+export default function createClassDay(user, userToAuthenticate) {
+    return (dispatch) => {
+    console.log(user, userToAuthenticate)
     api.app.authenticate()
-      .then(() => {
+      .then((response) => {
+        console.log(response)
         console.log(user.data._id)
         // Getting today
         const dateObject = new Date();
@@ -25,15 +28,21 @@ export default function match(user) {
                 return day
               }
             })
+            // pairService.create(Object.assign({}, pair, {token:result.token} ))
             console.log(matchingDay)
             if(matchingDay.length == 0) {
-              console.log(result)
-              // match(result)
-            }
+              classDays.create(Object.assign({}, {date: today}, {token:user.token}))
+                .then((result) => {
+                  console.log(result)
+                }).catch((error) => {
+                  console.log(error)
+                })
+              }
           })
       })
       .catch((error) => {
         console.error(error)
       })
-      return
+    }
+    return
 }
