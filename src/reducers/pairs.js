@@ -1,17 +1,13 @@
 import { FETCHED_PAIRS } from '../actions/pairs/fetch'
-const pairs = [
-  {
-    date: "2017-2-22",
-    students: [
-      {name: "Stefan Kollaart", email: "stefankollaart@gmail.com", admin: true}
-    ]
-  }
-]
+import { CREATE_PAIR } from '../actions/pairs/match'
 
-export default (state = pairs, { type, payload } = {}) => {
+export default (state = [], { type, payload } = {}) => {
   switch(type) {
     case FETCHED_PAIRS:
       return[].concat(payload)
+
+    case CREATE_PAIR:
+      return [Object.assign({}, payload)].concat(state)
 
     default:
       return state

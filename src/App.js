@@ -6,7 +6,7 @@ class App extends React.Component {
     return (
       <div>
           <Navigation />
-         { this.props.children }
+            { this.props.children }
       </div>
     )
   }

@@ -23,9 +23,7 @@ class ClassDayItem extends PureComponent {
       <article className="pair">
         <div>
           <p><Link to={`/classdays/${_id}`}>On { date }, this is your team:</Link></p>
-          <ul>
             {((allStudents) && this.props.pairs.map(this.renderPairs))}
-          </ul>
         </div>
       </article>
     )

@@ -19,9 +19,8 @@ export default (user) => {
           type: USER_SIGNED_IN,
           payload: response.data
         })
-        createClassDay(response)
+        dispatch(createClassDay(response))
         history.push('/')
-
     })
     .catch((error) => {
       dispatch(loadError(error))

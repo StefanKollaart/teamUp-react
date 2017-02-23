@@ -19,7 +19,7 @@ class RenderPairs extends PureComponent {
     return(
       <article className="pair">
         <div>
-          <li>{((students) && this.props.students.map(this.renderStudent))}</li>
+          <ul>{((students) && this.props.students.map(this.renderStudent))}</ul>
         </div>
       </article>
     )

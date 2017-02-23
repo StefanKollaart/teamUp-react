@@ -4,7 +4,11 @@ const classDays = api.service('classdays')
 import { history } from '../../store'
 const errors = require('feathers-errors')
 
-export default function updatePair(currentDay, createdPair) {
+export const UPDATE_CLASSDAY = 'UPDATE_CLASSDAY'
+export const CREATE_CLASSDAY = 'CREATE_CLASSDAY'
+
+export default function updatePair(currentDay, createdPair, isNewDay) {
+  return function (dispatch) {
     console.log(currentDay, createdPair)
     api.app.authenticate()
       .then((authResponse) => {
@@ -21,13 +25,24 @@ export default function updatePair(currentDay, createdPair) {
         console.log(currentDay)
         console.log(Object.assign({}, {pickableStudents: currentDay.pickableStudents}, {token:authResponse.token}))
         classDays.patch(currentDay._id, (Object.assign({}, { pickableStudents: currentDay.pickableStudents, allStudents: currentDay.allStudents, pairs: currentDay.pairs }, { token:authResponse.token })))
-        .then((response) => {
-          console.log(response)
+        .then((changedClassDay) => {
+          if(isNewDay) {
+            dispatch({
+              type: CREATE_CLASSDAY,
+              payload: changedClassDay
+            })
+          } else {
+            dispatch({
+              type: UPDATE_CLASSDAY,
+              payload: changedClassDay
+            })
+          }
+
         }).catch((error) => {
           console.error(error)
         })
       }).catch((error) => {
         console.error(error)
       })
-      return
     }
+  }

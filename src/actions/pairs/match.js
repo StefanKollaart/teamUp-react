@@ -4,10 +4,13 @@ const classDays = api.service('classdays')
 const pairService = api.service('pairs')
 import { history } from '../../store'
 import updatePair from '../classDays/updatePair'
+export const CREATE_PAIR = 'CREATE_PAIR'
+
 
 const errors = require('feathers-errors')
 
-export default function match(currentDay) {
+export default function match(currentDay, isNewDay) {
+  return function(dispatch) {
     console.log(currentDay)
     api.app.authenticate()
       .then((authResponse) => {
@@ -32,8 +35,12 @@ export default function match(currentDay) {
         // maak een pair met pickedStudents
         pairService.create(Object.assign({}, {students: pickedStudents}, {token:authResponse.token}))
           .then((createdPair) => {
+            dispatch({
+              type: CREATE_PAIR,
+              payload: createdPair.data
+            })
             console.log(createdPair)
-            updatePair(currentDay, createdPair)
+            dispatch(updatePair(currentDay, createdPair, isNewDay))
           }).catch((error) => {
             console.log(error)
           })
@@ -42,5 +49,5 @@ export default function match(currentDay) {
       }).catch((error) => {
         console.error(error)
       })
-      return
     }
+  }

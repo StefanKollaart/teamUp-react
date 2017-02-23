@@ -9,6 +9,7 @@ import match from '../pairs/match'
 const errors = require('feathers-errors')
 
 export default function createClassDay(user) {
+  return function(dispatch) {
     console.log(user)
     api.app.authenticate()
       .then((response) => {
@@ -27,7 +28,7 @@ export default function createClassDay(user) {
               .then((allUsers) => {
                 classDays.create(Object.assign({}, {date: today, allStudents: allUsers.data, pickableStudents: allUsers.data}, {token:user.token}))
                   .then((createdDay) => {
-                    match(createdDay)
+                    dispatch(match(createdDay, true))
                   }).catch((error) => {
                     console.error(error)
                   })
@@ -45,7 +46,7 @@ export default function createClassDay(user) {
                 })
                 console.log(isAlreadyMatched)
                 if(isAlreadyMatched.length == 0) {
-                  match(matchingDay[0])
+                  dispatch(match(matchingDay[0], false))
                 }
               }
           })
@@ -53,6 +54,5 @@ export default function createClassDay(user) {
       .catch((error) => {
         console.error(error)
       })
-      return
-
+  }
 }
