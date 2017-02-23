@@ -17,20 +17,25 @@ class ClassDayItem extends PureComponent {
   }
 
   render() {
-    const {_id, date, allStudents, pickableStudents, pairs} = this.props
+    const {_id, date, allStudents, pickableStudents, pairs, currentUser} = this.props
     console.log(this.props.pairs)
 
     return(
       <article className="pair">
         <div>
-          {(date === getDate() && <h2>Today, this is your team:</h2>)}
-          {((allStudents && date === getDate()) && this.props.pairs.map(this.renderPairs))}
-
-          {(date !== getDate() && <p><Link to={`/classdays/${_id}`}>{ date }</Link></p>)}
+          {(((date === getDate()) && (!currentUser.admin)) && <h2>Today, this is your team:</h2>)}
+          {(((date === getDate()) && (currentUser.admin)) && <h2>Today's teams:</h2>)}
+          {((!!pairs && date === getDate()) && this.props.pairs.map(this.renderPairs))}
+          {(date === getDate() && <h2>Pick date:</h2>)}
+          {<p><Link to={`/classdays/${_id}`}>{ date }</Link></p>}
         </div>
       </article>
     )
   }
 }
 
-export default ClassDayItem
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser
+})
+
+export default connect(mapStateToProps)(ClassDayItem)

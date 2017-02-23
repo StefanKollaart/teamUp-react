@@ -13,17 +13,44 @@ class RenderPairs extends PureComponent {
   }
 
   render() {
-    const {students} = this.props
-    console.log(this.props.students)
+    const {students, currentUser} = this.props
 
-    return(
-      <article className="pair">
-        <div>
-          <ul>{((students) && this.props.students.map(this.renderStudent))}</ul>
-        </div>
-      </article>
-    )
+    function isMyPair(students) {
+      const isPresent = students.filter(function(student) {
+        if (student._id == currentUser._id) {
+          return true
+        }
+      })
+      if (isPresent.length == 1) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    if (currentUser.admin) {
+      return(
+        <article className="pair">
+          <div>
+            <ul>{((students) && this.props.students.map(this.renderStudent))}</ul>
+          </div>
+        </article>
+      )
+    } else {
+      return(
+        <article className="pair">
+          <div>
+            <ul>{((isMyPair(students)) && this.props.students.map(this.renderStudent))}</ul>
+          </div>
+        </article>
+      )
+    }
+
   }
 }
 
-export default RenderPairs
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser
+})
+
+export default connect(mapStateToProps)(RenderPairs)

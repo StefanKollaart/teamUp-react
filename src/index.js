@@ -9,7 +9,6 @@ import ClassDaysContainer from './classdays/ClassDaysContainer'
 import ClassDayPage from './classdays/ClassDayPage'
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
-import admindex from './admin/Index'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -20,12 +19,7 @@ ReactDOM.render(
       <Route path="sign-up" component={SignUp}/>
       <Route path="sign-in" component={SignIn}/>
     </Route>
-    <Route path="/admin" component={admindex}>
-      {/* <IndexRoute component={ClassDaysContainer} />
-      <Route path="/classdays/:classDayId" component={ClassDayPage} />
-      <Route path="sign-up" component={SignUp}/>
-      <Route path="sign-in" component={SignIn}/> */}
-    </Route>
+
   </Router>
 </Provider>,
   document.getElementById('root')

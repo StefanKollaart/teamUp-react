@@ -8,7 +8,7 @@ import SignIn from '../users/SignIn'
 class ClassDaysContainer extends PureComponent {
   renderClassDays(classday, index) {
     console.log(classday)
-    return <ClassDayItem key={index} {...classday} />
+    return <ClassDayItem key={index} {...classday}/>
   }
 
   constructor() {

@@ -30,8 +30,8 @@ export class Navigation extends PureComponent {
     console.log(this.props)
     return (
       <nav>
+        {(signedIn && <Link to={`/`}>Team Up</Link>)}
         {(signedIn && <Link to='#' onClick={this.signOut.bind(this)}>Sign Out</Link>)}
-        {(admin && <Link to='#' onClick={this.signOut.bind(this)}>Admin Panel</Link>)}
       </nav>
     )
   }
