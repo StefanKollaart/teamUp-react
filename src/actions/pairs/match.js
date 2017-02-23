@@ -1,39 +1,46 @@
 import API from '../../middleware/api'
 const api = new API()
 const classDays = api.service('classdays')
+const pairService = api.service('pairs')
 import { history } from '../../store'
-// import match from '../pairs/match'
+import updatePair from '../classDays/updatePair'
 
-export default function match(user) {
+const errors = require('feathers-errors')
+
+export default function match(currentDay) {
+    console.log(currentDay)
     api.app.authenticate()
-      .then(() => {
-        console.log(user.data._id)
-        // Getting today
-        const dateObject = new Date();
-        const day = dateObject.getDate();
-        const month = dateObject.getMonth() + 1;
-        const year = dateObject.getFullYear();
-        console.log(year + "-" + month + "-" + day);
-        const today = year + "-" + month + "-" + day;
-
-        classDays.find()
-          .then((result) => {
-            const matchingDay = result.data.filter(function(day) {
-              console.log(day.date)
-              console.log(today)
-              if(day.date == today) {
-                return day
+      .then((authResponse) => {
+        console.log(authResponse)
+          let pickedStudents = [authResponse.data]
+          var i = 0;
+            while(i < 1) {
+            var randomNumber = Math.floor(Math.random() * currentDay.pickableStudents.length)
+            let students = currentDay.pickableStudents.filter(function(student, index) {
+              if(randomNumber == index) {
+                return student
               }
             })
-            console.log(matchingDay)
-            if(matchingDay.length == 0) {
-              console.log(result)
-              // match(result)
+            if(!pickedStudents.includes(students[0])) {
+              pickedStudents.push(students[0])
+              i++
             }
+          }
+
+        console.log(pickedStudents)
+        console.log(authResponse.token)
+        // maak een pair met pickedStudents
+        pairService.create(Object.assign({}, {students: pickedStudents}, {token:authResponse.token}))
+          .then((createdPair) => {
+            console.log(createdPair)
+            updatePair(currentDay, createdPair)
+          }).catch((error) => {
+            console.log(error)
           })
-      })
-      .catch((error) => {
+
+
+      }).catch((error) => {
         console.error(error)
       })
       return
-}
+    }

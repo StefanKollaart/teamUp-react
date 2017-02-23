@@ -19,14 +19,9 @@ export default (user) => {
           type: USER_SIGNED_IN,
           payload: response.data
         })
-        dispatch(createClassDay(response, user))
-        console.log("Test")
-        .then(() => {
-          console.log("here")
-          history.push('/')
-        }).catch((error) => {
-          console.log(error)
-        })
+        createClassDay(response)
+        history.push('/')
+
     })
     .catch((error) => {
       dispatch(loadError(error))
