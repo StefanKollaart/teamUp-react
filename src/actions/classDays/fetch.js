@@ -27,6 +27,6 @@ export default () => {
 const fetchedDays = (result) => {
   return {
     type: FETCHED_CLASSDAYS,
-    payload: [].concat(result.data)
+    payload: [].concat(result.data.reverse())
   }
 }

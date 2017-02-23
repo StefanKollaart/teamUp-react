@@ -25,19 +25,21 @@ export class Navigation extends PureComponent {
   }
 
   render() {
-    const { signedIn } = this.props
+    const { signedIn, admin } = this.props
+
+    console.log(this.props)
     return (
-      <div>
-        <span><Link to='#' onClick={this.signOut.bind(this)}>Sign Out</Link> ||  </span>
-        <span><Link to={`/sign-in`}>Sign In</Link>  ||  </span>
-        <span><Link to={`/sign-up`}>Sign Up</Link>  ||  </span>
-      </div>
+      <nav>
+        {(signedIn && <Link to='#' onClick={this.signOut.bind(this)}>Sign Out</Link>)}
+        {(admin && <Link to='#' onClick={this.signOut.bind(this)}>Admin Panel</Link>)}
+      </nav>
     )
   }
 }
 
 const mapStateToProps = ({ currentUser }) => ({
-  signedIn: (!!currentUser && !!currentUser._id)
+  signedIn: (!!currentUser && !!currentUser._id),
+  admin: (!!currentUser && !!currentUser.admin == true)
 })
 
 export default connect(mapStateToProps, { signOut })(Navigation)

@@ -2,6 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import RenderPairs from '../components/RenderPairs'
+import getDate from '../actions/classDays/getDate'
 
 class ClassDayItem extends PureComponent {
   static propTypes = {
@@ -22,8 +23,10 @@ class ClassDayItem extends PureComponent {
     return(
       <article className="pair">
         <div>
-          <p><Link to={`/classdays/${_id}`}>On { date }, this is your team:</Link></p>
-            {((allStudents) && this.props.pairs.map(this.renderPairs))}
+          {(date === getDate() && <h2>Today, this is your team:</h2>)}
+          {((allStudents && date === getDate()) && this.props.pairs.map(this.renderPairs))}
+
+          {(date !== getDate() && <p><Link to={`/classdays/${_id}`}>{ date }</Link></p>)}
         </div>
       </article>
     )
