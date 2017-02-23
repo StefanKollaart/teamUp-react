@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Navigation from './components/Navigation'
 
 class App extends React.Component {
@@ -6,10 +7,15 @@ class App extends React.Component {
     return (
       <div>
           <Navigation />
-            { this.props.children }
+          { this.props.children }
       </div>
     )
   }
 }
 
-export default App
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser
+})
+
+
+export default connect (mapStateToProps)(App)

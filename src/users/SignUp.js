@@ -109,7 +109,7 @@ export class SignUp extends PureComponent {
   render() {
     return (
       <div className="sign-up form">
-        <h1>Sign Up</h1>
+        <h2>Sign Up</h2>
 
         <form onSubmit={this.submitForm.bind(this)}>
           <div className="input">

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ClassDayItem from './ClassDayItem'
 import fetchClassDays from '../actions/classDays/fetch'
 import { Link } from 'react-router'
+import SignIn from '../users/signIn'
 
 class ClassDaysContainer extends PureComponent {
   renderClassDays(classday, index) {
@@ -20,6 +21,16 @@ class ClassDaysContainer extends PureComponent {
   }
 
  render() {
+   if(this.props.currentUser === null) {
+     return(
+       <div>
+         <h1>Team Up</h1>
+         <SignIn />
+         <p>Not an user yet? Don't worry, we're not Jimmy Who. <Link to={`sign-up`}>Sign up.</Link></p>
+       </div>
+
+     )
+   } else {
    return(
      <div className="classdays wrapper">
        <header>
@@ -32,11 +43,12 @@ class ClassDaysContainer extends PureComponent {
 
      </div>
    )
+  }
  }
 }
 
-const mapStateToProps = ({ classDays }) => ({
-  classDays
+const mapStateToProps = ({ classDays, currentUser }) => ({
+  classDays, currentUser
 })
 
 export default connect(mapStateToProps, {fetchClassDays})(ClassDaysContainer)
