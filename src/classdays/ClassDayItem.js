@@ -19,8 +19,6 @@ class ClassDayItem extends PureComponent {
   }
 
   handleClick() {
-    console.log("Hello")
-    debugger
     const thisDay = {
       _id: this.props._id,
       allStudent: this.props.allStudents,

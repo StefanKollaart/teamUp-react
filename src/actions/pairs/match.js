@@ -39,8 +39,6 @@ export default function match(currentDay, isNewDay, isMyPair) {
             }
           }
 
-        console.log(pickedStudents)
-        console.log(authResponse.token)
         // maak een pair met pickedStudents
         pairService.create(Object.assign({}, {students: pickedStudents}, {token:authResponse.token}))
           .then((createdPair) => {
@@ -48,7 +46,6 @@ export default function match(currentDay, isNewDay, isMyPair) {
               type: CREATE_PAIR,
               payload: createdPair.data
             })
-            console.log(createdPair)
             dispatch(updatePair(currentDay, createdPair, isNewDay))
           }).catch((error) => {
             console.log(error)
