@@ -9,15 +9,21 @@ export const CREATE_PAIR = 'CREATE_PAIR'
 
 const errors = require('feathers-errors')
 
-export default function match(currentDay, isNewDay) {
+export default function match(currentDay, isNewDay, isMyPair) {
   return function(dispatch) {
     console.log(currentDay)
     api.app.authenticate()
       .then((authResponse) => {
         console.log(authResponse)
-          let pickedStudents = [authResponse.data]
-          var i = 0;
-            while(i < 1) {
+        let pickedStudents = []
+        let howManyLeft = currentDay.pickableStudents.length
+        console.log(howManyLeft)
+        var i = 0
+        if(isMyPair) {
+          pickedStudents = [authResponse.data]
+          i++
+        }
+            while(i < 2) {
             var randomNumber = Math.floor(Math.random() * currentDay.pickableStudents.length)
             let students = currentDay.pickableStudents.filter(function(student, index) {
               if(randomNumber == index) {
@@ -26,6 +32,9 @@ export default function match(currentDay, isNewDay) {
             })
             if(!pickedStudents.includes(students[0])) {
               pickedStudents.push(students[0])
+              i++
+              howManyLeft--
+            } else if(howManyLeft <= 1) {
               i++
             }
           }

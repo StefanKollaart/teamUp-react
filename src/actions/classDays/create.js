@@ -28,7 +28,7 @@ export default function createClassDay(user) {
               .then((allUsers) => {
                 classDays.create(Object.assign({}, {date: today, allStudents: allUsers.data, pickableStudents: allUsers.data}, {token:user.token}))
                   .then((createdDay) => {
-                    dispatch(match(createdDay, true))
+                    dispatch(match(createdDay, true, true))
                   }).catch((error) => {
                     console.error(error)
                   })
@@ -36,17 +36,13 @@ export default function createClassDay(user) {
                   console.error(error)
                 })
               } else if(matchingDay.length == 1) {
-                console.log(matchingDay[0].pairs)
-                console.log(user.data._id) // user id
                 const isAlreadyMatched = matchingDay[0].pairs.filter(function(pair) {
-                  console.log(pair.students[0]._id, pair.students[1]._id, user.data._id)
                   if((pair.students[0]._id == user.data._id) || (pair.students[1]._id == user.data._id)) {
                     return true
                   }
                 })
-                console.log(isAlreadyMatched)
                 if(isAlreadyMatched.length == 0) {
-                  dispatch(match(matchingDay[0], false))
+                  dispatch(match(matchingDay[0], false, true))
                 }
               }
           })
